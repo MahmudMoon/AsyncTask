@@ -4,6 +4,10 @@ import android.content.Intent;
 import android.os.AsyncTask;
 import android.widget.Toast;
 
+import com.nostra13.universalimageloader.core.DisplayImageOptions;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -20,6 +24,14 @@ import java.util.ArrayList;
 public class Task extends AsyncTask<String,String,String> {
 
     ArrayList<MovieObject> arrayList;
+
+
+    @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+    }
+
+
     @Override
     protected String doInBackground(String... strings) {
         try {
@@ -79,10 +91,16 @@ public class Task extends AsyncTask<String,String,String> {
         return null;
     }
 
+
+    @Override
+    protected void onProgressUpdate(String... values) {
+        super.onProgressUpdate(values);
+    }
+
     @Override
     protected void onPostExecute(String s) {
         super.onPostExecute(s);
-        //MainActivity.textView.setText(s);
+
         MainActivity.listView.setAdapter(new customAdapter(MainActivity.mContext,arrayList));
         Toast.makeText(MainActivity.mContext, Integer.toString(arrayList.size()),Toast.LENGTH_LONG).show();
     }
